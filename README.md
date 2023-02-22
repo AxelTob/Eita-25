@@ -1,1 +1,4 @@
-# Eita-25
+# Eita25
+
+
+Lets go. Journal system
