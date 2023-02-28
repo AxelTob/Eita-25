@@ -8,24 +8,28 @@ import java.util.List;
 
 import src.Enums.Role;
 
-public class PopulateScript {
+public class Setup {
     private static final String USERS_FILENAME = Paths.get("src","files", "users.txt").toAbsolutePath().toString();
     private static final String RECORDS_FILENAME = Paths.get("src","files", "records.txt").toAbsolutePath().toString();
-
-    public static void main(String[] args) {
-        List<User> users = loadUsersFromFile(USERS_FILENAME);
+    // THESE CAN BE USED FROM OTHER FILES /////
+    public static List<User> users;
+    public static RecordSystem recordSystem;
+    //////////////////////////////////////////
+    public static void run(){
+        users = loadUsersFromFile(USERS_FILENAME);
         List<Record> records = loadRecordsFromFile(RECORDS_FILENAME, users);
-        RecordSystem recordSystem = new RecordSystem();
+        recordSystem = new RecordSystem();
         for (Record record : records) {
             recordSystem.addRecord(record);
         }
+        // test
         User user = findUserByName(users, "patient1");
         List<Record> authorizedRecords = recordSystem.getRecords(user);
         for (Record record : authorizedRecords) {
             System.out.println(record.getContent(user));
         }
-    }
 
+    }
     private static List<User> loadUsersFromFile(String filename) {
         List<User> users = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
