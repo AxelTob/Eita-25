@@ -1,21 +1,29 @@
 package src.Server;
 
 import src.RecordSystem;
+import src.Setup;
 import src.User;
 import src.Enums.Role;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import src.Record;
 
 public class cmdHandler {
     
     RecordSystem records;
     User user;
+    List<User> userList;
 
     
-    public cmdHandler(User user, RecordSystem records){
+    public cmdHandler(User user, RecordSystem records, List<User> userList){
 
         this.records = records;
         this.user = user;
+        this.userList = userList;
     }
+    
     
     public String handle(String msg){
         String[] input = msg.split(" ");
@@ -50,16 +58,17 @@ public class cmdHandler {
 
                     if (rec!= null) {
                         StringBuilder sb = new StringBuilder();
-
-                        sb.append(input[2]);                //ADD AS A FOR-LOOP, ALL AFTER RECORD ID
+                        for(int i = 2; i < input.length; i++){
+                            sb.append(input[i] + " ");
+                        }
                         rec.setContent(user, sb.toString());
                         return "Record updated.";
                     } else {
                         return "You do not have permission for this action, or the record does not exist.";
                     }
 
-                case "create":      //IMPLEMENT
-                if (input.length < 6) return "Usage: create [Record ID] [patient] [division name] [nurse name] [info]";
+                case "create":
+                if (input.length < 6) return "Usage: create [new Record ID] [patient] [division name] [nurse name] [info]";
                     if(user.getRole() != Role.DOCTOR){
                         return "You do not have permission for this action.";
                     }
@@ -69,28 +78,39 @@ public class cmdHandler {
                     String divisionName = input[3];
                     String nurseName = input[4];
                     StringBuilder info = new StringBuilder();
-                    
+
+                    User patientFormatted = Setup.findUserByName(userList, patient);
+                    User nurseFormatted = Setup.findUserByName(userList, nurseName);
+
+                    if(patientFormatted == null || nurseFormatted == null){
+                        return "Nurse or patient does not exist. Try again.";
+                    }
+
+                    List<User> nurseList = new ArrayList<User>();
+                    List<User> doctor = new ArrayList<User>();
+
+                    nurseList.add(nurseFormatted);
+                    doctor.add(user);
 
                     for(int i = 5; i < input.length; i++){
                         info.append(input[i] + " ");
                     }
-                    //User patient, String recordID, List<User> nurses, List<User> doctors, String department, String content
-                    //Record newRecord = new Record(patient, recordID, nurseName, divisionName, info.toString());
+
+                    Record newRecord = new Record(Setup.findUserByName(userList, patient), recordID, nurseList, doctor, divisionName, info.toString());
                     records.addRecord(newRecord);
                     return "New record was added.";
 
-                case "delete":      //DONE?
+
+                case "delete":
                     if (input.length != 2) {
                         return "Usage: delete [record id]";
                     }
-                    rec = records.getRecord(user, input[1]);
-
-                    if (rec!= null) {
-                        rec.delete(user);
+                    if (records.deleteRecord(user, input[1])) {
                         return "Record deleted";
                     } else {
-                        return "The record does not exist.";
+                        return "You do not have permission for this action, or the record does not exist.";
                     }
+
 
                 default:
                     return "No such command.";

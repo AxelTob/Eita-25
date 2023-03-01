@@ -5,18 +5,20 @@ import javax.net.*;
 import javax.net.ssl.*;
 
 import src.RecordSystem;
+import src.Setup;
+import src.User;
 
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
+import java.util.List;
 
 
 public class server implements Runnable {
   private ServerSocket serverSocket = null;
   private static int numConnectedClients = 0;
   private cmdHandler cmdHandler;
-  private RecordSystem records;
   
   public server(ServerSocket ss) throws IOException {
     serverSocket = ss;
@@ -50,15 +52,16 @@ public class server implements Runnable {
       out = new PrintWriter(socket.getOutputStream(), true);
       in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-      Setup setup = new Setup();
-      setup.run();
-
-      //cmdHandler = new cmdHandler(user, records); //HITTAR USER UTIFRÅN ALIAS
       
-      /////////////////////////////////////NYTT NEDAN
+      Setup.run();
+      List<User> users = Setup.users;
+      //VERIFIERA HÄR. MEN HUR? MÅSTE FÅ SYSTEMET ATT SKRIVA TILL FIL OCKSÅ.
+      RecordSystem recordSystem = Setup.recordSystem;
+
+      //cmdHandler cmdHandler = new cmdHandler(user, recordSystem, users); //SKA HITTA USER UTIFRÅN ALIAS OCH SKAPA DEN HÄR CMDHANDLERN
 
       String clientMsg = null;
-      while ((clientMsg = in.readLine()) != "quit") {
+      while ((clientMsg = in.readLine().trim()) != "quit") {
         out.println(cmdHandler.handle(clientMsg));
         out.flush();
         //String rev = new StringBuilder(clientMsg).reverse().toString(); ////////////////////

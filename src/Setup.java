@@ -48,7 +48,7 @@ public class Setup {
         return users;
     }
 
-    private static User findUserByName(List<User> users, String name) {
+    public static User findUserByName(List<User> users, String name) {
         for (User user : users) {
             if (user.getName().equals(name)) {
                 return user;

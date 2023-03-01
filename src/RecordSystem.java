@@ -22,6 +22,18 @@ public class RecordSystem {
         return null;
     }
 
+    public boolean deleteRecord(User user, String recordID){        //NY
+        boolean removed = false;
+        Record deleteRec = getRecord(user, recordID);
+        if (deleteRec != null) {
+            deleteRec.delete(user);
+            if(deleteRec.getContent(user) == null){     //Seems unecessary, but it checks privilege to delete. Quite ugly
+                removed = records.remove(deleteRec);
+            }
+        }
+        return removed;
+    }
+
     public List<Record> getRecords(User user) {
         List<Record> authorizedRecords = new ArrayList<>();
         for (Record record : records) {
