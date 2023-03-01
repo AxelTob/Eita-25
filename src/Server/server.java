@@ -49,7 +49,11 @@ public class server implements Runnable {
       BufferedReader in = null;
       out = new PrintWriter(socket.getOutputStream(), true);
       in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-      cmdHandler = new cmdHandler(user, records); //SKAPA USER UTIFRÅN ALIAS
+
+      Setup setup = new Setup();
+      setup.run();
+
+      //cmdHandler = new cmdHandler(user, records); //HITTAR USER UTIFRÅN ALIAS
       
       /////////////////////////////////////NYTT NEDAN
 
