@@ -13,6 +13,15 @@ public class RecordSystem {
         records.add(record);
     }
 
+    public Record getRecord(User user, String recordID){        //NY
+        for (Record record : records) {
+            if (record.getContent(user) != null && record.getRecordID().equals(recordID)) {
+                return record;
+            }
+        }
+        return null;
+    }
+
     public List<Record> getRecords(User user) {
         List<Record> authorizedRecords = new ArrayList<>();
         for (Record record : records) {

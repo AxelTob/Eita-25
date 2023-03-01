@@ -1,8 +1,11 @@
-package src;
+package src.Server;
 import java.io.*;
 import java.net.*;
 import javax.net.*;
 import javax.net.ssl.*;
+
+import src.RecordSystem;
+
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
@@ -12,6 +15,8 @@ import java.util.Enumeration;
 public class server implements Runnable {
   private ServerSocket serverSocket = null;
   private static int numConnectedClients = 0;
+  private cmdHandler cmdHandler;
+  private RecordSystem records;
   
   public server(ServerSocket ss) throws IOException {
     serverSocket = ss;
@@ -44,16 +49,21 @@ public class server implements Runnable {
       BufferedReader in = null;
       out = new PrintWriter(socket.getOutputStream(), true);
       in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+      cmdHandler = new cmdHandler(user, records); //SKAPA USER UTIFRÅN ALIAS
+      
+      /////////////////////////////////////NYTT NEDAN
 
       String clientMsg = null;
-      while ((clientMsg = in.readLine()) != null) {
-        String rev = new StringBuilder(clientMsg).reverse().toString();
-        System.out.println("received '" + clientMsg + "' from client");
-        System.out.print("sending '" + rev + "' to client...");
-        out.println(rev);
+      while ((clientMsg = in.readLine()) != "quit") {
+        out.println(cmdHandler.handle(clientMsg));
         out.flush();
-        System.out.println("done\n");
+        //String rev = new StringBuilder(clientMsg).reverse().toString(); ////////////////////
+        //System.out.println("received '" + clientMsg + "' from client");
+        //System.out.print("sending '" + rev + "' to client..."); //////////////////
+        //out.println(rev);
+        //System.out.println("done\n");
       }
+      System.out.println("Session is over. Goodbye!");
       in.close();
       out.close();
       socket.close();

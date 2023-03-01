@@ -29,9 +29,9 @@ public class RecordSystemTest {
         government = new User("government", Role.GOVERNMENT, null);
 
         // Create records
-        record1 = new Record(patient1, List.of(nurse1), List.of(doctor1, doctor2), "department1", "Record 1");
-        record2 = new Record(patient1, List.of(nurse1, nurse2), List.of(doctor1), "department1", "Record 2");
-        record3 = new Record(patient2, List.of(nurse2), List.of(doctor2), "department2", "Record 3");
+        record1 = new Record(patient1, "1", List.of(nurse1), List.of(doctor1, doctor2), "department1", "Record 1");
+        record2 = new Record(patient1, "2", List.of(nurse1, nurse2), List.of(doctor1), "department1", "Record 2");
+        record3 = new Record(patient2, "3", List.of(nurse2), List.of(doctor2), "department2", "Record 3");
 
         // Create record system
         recordSystem = new RecordSystem();
@@ -94,7 +94,7 @@ public class RecordSystemTest {
 
     @Test
     public void testDoctorCanCreateNewRecord() {
-        Record newRecord = new Record(patient1, List.of(nurse1), List.of(doctor1), "department1", "New record");
+        Record newRecord = new Record(patient1, "1", List.of(nurse1), List.of(doctor1), "department1", "New record");
         recordSystem.addRecord(newRecord);
         String content = newRecord.getContent(doctor1);
         assertEquals("New record", content);
@@ -102,7 +102,7 @@ public class RecordSystemTest {
 
     @Test
     public void testDoctorCanCreateNewRecordWithoutAssociatedNurse() {
-        Record newRecord = new Record(patient1, null, List.of(doctor1), "department1", "New record");
+        Record newRecord = new Record(patient1, "1", null, List.of(doctor1), "department1", "New record");
         recordSystem.addRecord(newRecord);
         List<Record> authorizedRecords = recordSystem.getRecords(doctor1);
         assertTrue(authorizedRecords.contains(newRecord));
@@ -110,7 +110,7 @@ public class RecordSystemTest {
 
     @Test
     public void testDoctorCanCreateNewRecordWithAssociatedNurse() {
-        Record newRecord = new Record(patient1, List.of(nurse1), List.of(doctor1), "department1", "New record");
+        Record newRecord = new Record(patient1, "1", List.of(nurse1), List.of(doctor1), "department1", "New record");
         recordSystem.addRecord(newRecord);
         List<Record> authorizedRecords = recordSystem.getRecords(doctor1);
         assertTrue(authorizedRecords.contains(newRecord));

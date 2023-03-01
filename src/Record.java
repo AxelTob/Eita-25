@@ -11,13 +11,19 @@ public class Record {
     private final List<User> doctors;
     private final String department;
     private String content;
+    private String recordID;
 
-    public Record(User patient, List<User> nurses, List<User> doctors, String department, String content) {
+    public Record(User patient, String recordID, List<User> nurses, List<User> doctors, String department, String content) {
         this.patient = patient;
         this.nurses = nurses == null ? null : new ArrayList<>(nurses);
         this.doctors = new ArrayList<>(doctors);
         this.department = department;
         this.content = content;
+        this.recordID = recordID;
+    }
+
+    public String getRecordID(){        //NY
+        return recordID;
     }
 
     public User getPatient() {
