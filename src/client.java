@@ -5,6 +5,7 @@ import javax.net.ssl.*;
 import java.security.cert.X509Certificate;
 import java.security.KeyStore;
 import java.security.cert.*;
+import java.util.Scanner;
 
 /*
  * This example shows how to set up a key manager to perform client
@@ -95,6 +96,17 @@ public class client {
       socket.close();
     } catch (Exception e) {
       e.printStackTrace();
+    }
+  }
+  public boolean checkPassy(User j){
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Enter your password: ");
+    String userPassword = scanner.next();
+    if (userPassword.equals(j.getPassword())) {
+      return true;
+    } else {
+      return false;
+
     }
   }
 }
