@@ -36,6 +36,7 @@ public class server implements Runnable {
       // BigInteger serial = ((X509Certificate) cert[0]).getSubjectX500Principal().getSerialNumber();
       String issuer = ((X509Certificate)cert[0]).getIssuerX500Principal().getName();
       String serial = ((X509Certificate)cert[0]).getSerialNumber().toString();
+      String alias = "";
 
       numConnectedClients++;
       System.out.println("client connected");
@@ -55,10 +56,10 @@ public class server implements Runnable {
       
       Setup.run();
       List<User> users = Setup.users;
-      //VERIFIERA HÄR. MEN HUR? MÅSTE FÅ SYSTEMET ATT SKRIVA TILL FIL OCKSÅ.
+      //VERIFY USER PASSWORD AROUND HERE. DONT FORGET TO MAKE WRITING TO FILE POSSIBLE LATER, WHEN CREATING AND ALTERING RECORD.
       RecordSystem recordSystem = Setup.recordSystem;
 
-      //cmdHandler cmdHandler = new cmdHandler(user, recordSystem, users); //SKA HITTA USER UTIFRÅN ALIAS OCH SKAPA DEN HÄR CMDHANDLERN
+      //cmdHandler cmdHandler = new cmdHandler(user, recordSystem, users); //FIND USER THAT LOGGED IN FROM LIST OF USERS AND CREATE THIS CMDHANDLER
 
       String clientMsg = null;
       while ((clientMsg = in.readLine().trim()) != "quit") {
