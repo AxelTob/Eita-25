@@ -20,13 +20,13 @@ public class RecordSystemTest {
     @BeforeEach
     public void setUp() {
         // Create users
-        patient1 = new User("patient1", Role.PATIENT, null);
-        patient2 = new User("patient2", Role.PATIENT, null);
-        nurse1 = new User("nurse1", Role.NURSE, "department1");
-        nurse2 = new User("nurse2", Role.NURSE, "department2");
-        doctor1 = new User("doctor1", Role.DOCTOR, "department1");
-        doctor2 = new User("doctor2", Role.DOCTOR, "department2");
-        government = new User("government", Role.GOVERNMENT, null);
+        patient1 = new User("patient1", Role.PATIENT, null, "1");
+        patient2 = new User("patient2", Role.PATIENT, null, "2");
+        nurse1 = new User("nurse1", Role.NURSE, "department1", "3");
+        nurse2 = new User("nurse2", Role.NURSE, "department2", "4");
+        doctor1 = new User("doctor1", Role.DOCTOR, "department1", "5");
+        doctor2 = new User("doctor2", Role.DOCTOR, "department2", "6");
+        government = new User("government", Role.GOVERNMENT, null, "7");
 
         // Create records
         record1 = new Record(patient1, List.of(nurse1), List.of(doctor1, doctor2), "department1", "Record 1");

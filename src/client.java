@@ -5,6 +5,8 @@ import javax.net.ssl.*;
 import java.security.cert.X509Certificate;
 import java.security.KeyStore;
 import java.security.cert.*;
+import java.util.Scanner;
+
 
 /*
  * This example shows how to set up a key manager to perform client
@@ -97,4 +99,6 @@ public class client {
       e.printStackTrace();
     }
   }
+
+
 }
