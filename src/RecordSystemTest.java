@@ -1,12 +1,16 @@
+package src;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import src.Record;
-import src.RecordSystem;
-import src.User;
 import src.Enums.Role;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -146,4 +150,5 @@ public class RecordSystemTest {
         content = record3.getContent(government);
         assertNull(content);
     }
+
 }

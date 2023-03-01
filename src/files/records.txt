@@ -2,3 +2,4 @@ patient1,nurse1,doctor1-doctor2,department1,Record 1
 patient1,nurse1-nurse2,doctor1,department1,Record 2
 patient2,nurse2,doctor2,department2,Record 3
 patient1,,doctor1,department1,This is it. No more drugs.
+patient2,nurse2,doctor1,department1,Test save to file

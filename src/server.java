@@ -114,28 +114,5 @@ public class server implements Runnable {
     return null;
   }
 
-
-// given request certificate, that has been signed by the CA, the server will authenticate the client
-// ie it was found in the truststore and the certificate is valid
-// this function takes that as parameter and returns alias
-private String getAlias(X509Certificate cert) {
-    try {
-        KeyStore trustStore = KeyStore.getInstance("JKS");
-        trustStore.load(new FileInputStream("servertruststore"), "password".toCharArray());
-        Enumeration<String> aliases = trustStore.aliases();
-        while (aliases.hasMoreElements()) {
-            String alias = aliases.nextElement();
-            if (trustStore.isCertificateEntry(alias)) {
-                Certificate trustedCert = trustStore.getCertificate(alias);
-                if (cert.equals(trustedCert)) {
-                    return alias;
-                }
-            }
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return null;
-  }
 }
 
