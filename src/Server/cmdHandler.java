@@ -75,11 +75,11 @@ public class cmdHandler {
                         info.append(input[i] + " ");
                     }
                     //User patient, String recordID, List<User> nurses, List<User> doctors, String department, String content
-                    Record newRecord = new Record(patient, recordID, nurseName, divisionName, info.toString());
+                    //Record newRecord = new Record(patient, recordID, nurseName, divisionName, info.toString());
                     records.addRecord(newRecord);
                     return "New record was added.";
 
-                case "delete":
+                case "delete":      //DONE?
                     if (input.length != 2) {
                         return "Usage: delete [record id]";
                     }
