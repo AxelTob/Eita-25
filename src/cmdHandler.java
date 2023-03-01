@@ -1,14 +1,7 @@
-package src.Server;
-
-import src.RecordSystem;
-import src.Setup;
-import src.User;
-import src.Enums.Role;
+package src;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import src.Record;
 
 public class cmdHandler {
     

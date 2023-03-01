@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.Enums.Role;
-
 public class Setup {
     private static final String USERS_FILENAME = Paths.get("src","files", "users.txt").toAbsolutePath().toString();
     private static final String RECORDS_FILENAME = Paths.get("src","files", "records.txt").toAbsolutePath().toString();

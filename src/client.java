@@ -38,6 +38,7 @@ public class client {
       SSLSocketFactory factory = null;
       try {
         char[] password = "password".toCharArray();
+       // char[] password
         KeyStore ks = KeyStore.getInstance("JKS");
         KeyStore ts = KeyStore.getInstance("JKS");
         KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");

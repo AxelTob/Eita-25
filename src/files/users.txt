@@ -1,0 +1,8 @@
+patient1,PATIENT,
+patient2,PATIENT,
+nurse1,NURSE,department1
+nurse2,NURSE,department2
+doctor1,DOCTOR,department1
+doctor2,DOCTOR,department2
+doctor3,DOCTOR,department1
+government,GOVERNMENT,

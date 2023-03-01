@@ -1,6 +1,4 @@
 package src;
-import src.Enums.Permission;
-import src.Enums.Role;
 
 public class User {
     private final String name;

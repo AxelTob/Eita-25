@@ -1,19 +1,25 @@
-package src.Server;
+package src;
 
-import java.io.*;
-import java.net.*;
-import javax.net.*;
-import javax.net.ssl.*;
-
-import src.RecordSystem;
-import src.Setup;
-import src.User;
-
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 import java.util.List;
+
+import javax.net.ServerSocketFactory;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.TrustManagerFactory;
 
 
 public class server implements Runnable {
@@ -59,9 +65,14 @@ public class server implements Runnable {
       List<User> users = Setup.users;
       //VERIFY USER PASSWORD AROUND HERE. DONT FORGET TO MAKE WRITING TO FILE POSSIBLE LATER, WHEN CREATING AND ALTERING RECORD.
       RecordSystem recordSystem = Setup.recordSystem;
-
-      //cmdHandler cmdHandler = new cmdHandler(user, recordSystem, users); //FIND USER THAT LOGGED IN FROM LIST OF USERS AND CREATE THIS CMDHANDLER
-
+      User user = users.get(0);
+      System.out.println(user);
+      cmdHandler cmdHandler = new cmdHandler(user, recordSystem, users); //FIND USER THAT LOGGED IN FROM LIST OF USERS AND CREATE THIS CMDHANDLER
+      // TODO
+      // Read USER from commandline smthn. "readInput()" and get CN="USER" from the client certificate
+      // Compare USERS to each other in order to verify access. 
+      // TODO
+      // Read password from the user, compare it to the passwordfile. 
       String clientMsg = null;
       while ((clientMsg = in.readLine().trim()) != "quit") {
         out.println(cmdHandler.handle(clientMsg));
@@ -87,6 +98,8 @@ public class server implements Runnable {
   }
   
   private void newListener() { (new Thread(this)).start(); } // calls run()
+
+
   public static void main(String args[]) {
     System.out.println("\nServer Started\n");
     int port = -1;

@@ -2,9 +2,6 @@ package src;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.Enums.Permission;
-import src.Enums.Role;
-
 public class Record {
     private final User patient;
     private final List<User> nurses;
