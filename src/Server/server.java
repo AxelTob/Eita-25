@@ -1,4 +1,5 @@
 package src.Server;
+
 import java.io.*;
 import java.net.*;
 import javax.net.*;
@@ -89,6 +90,7 @@ public class server implements Runnable {
   public static void main(String args[]) {
     System.out.println("\nServer Started\n");
     int port = -1;
+    System.out.println(port);
     if (args.length >= 1) {
       port = Integer.parseInt(args[0]);
     }
@@ -115,9 +117,9 @@ public class server implements Runnable {
         KeyStore ts = KeyStore.getInstance("JKS");
         char[] password = "password".toCharArray();
         // keystore password (storepass)
-        ks.load(new FileInputStream("serverkeystore"), password);  
-        // truststore password (storepass)
-        ts.load(new FileInputStream("servertruststore"), password); 
+        ks.load(new FileInputStream("src/certificates/serverkeystore"), password);  
+        // truststore password (storepass) src/certificates/clienttruststore
+        ts.load(new FileInputStream("src/certificates/servertruststore"), password); 
         kmf.init(ks, password); // certificate password (keypass)
         tmf.init(ts);  // possible to use keystore as truststore here
         ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
@@ -139,7 +141,7 @@ public class server implements Runnable {
 private String getAlias(X509Certificate cert) {
     try {
         KeyStore trustStore = KeyStore.getInstance("JKS");
-        trustStore.load(new FileInputStream("servertruststore"), "password".toCharArray());
+        trustStore.load(new FileInputStream("src/certificates/servertruststore"), "password".toCharArray());
         Enumeration<String> aliases = trustStore.aliases();
         while (aliases.hasMoreElements()) {
             String alias = aliases.nextElement();
