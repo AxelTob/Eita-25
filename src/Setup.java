@@ -6,11 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
-=======
-import src.Enums.Role;
 
->>>>>>> main
+
 public class Setup {
     private static final String USERS_FILENAME = Paths.get("src","files", "users.txt").toAbsolutePath().toString();
     private static final String RECORDS_FILENAME = Paths.get("src","files", "records.txt").toAbsolutePath().toString();
@@ -51,11 +48,7 @@ public class Setup {
         return users;
     }
 
-<<<<<<< HEAD
     public static User findUserByName(List<User> users, String name) {
-=======
-    private static User findUserByName(List<User> users, String name) {
->>>>>>> main
         for (User user : users) {
             if (user.getName().equals(name)) {
                 return user;
@@ -89,11 +82,7 @@ public class Setup {
                 String content = fields[4];
                 User patient = findUserByName(users, patientName);
                 if (patient != null) {
-<<<<<<< HEAD
                     Record record = new Record(patient, patient.toString() + department, nurses, doctors, department, content);
-=======
-                    Record record = new Record(patient, nurses, doctors, department, content);
->>>>>>> main
                     records.add(record);
                 }
             }

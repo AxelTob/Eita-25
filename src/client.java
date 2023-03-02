@@ -3,6 +3,7 @@ import java.net.*;
 import java.io.*;
 import javax.net.ssl.*;
 import java.security.cert.X509Certificate;
+import java.util.Scanner;
 import java.security.KeyStore;
 import java.security.cert.*;
 
@@ -34,9 +35,30 @@ public class client {
       System.exit(-1);
     }
 
+    boolean notLoggedIn = true;
+    String password, username = null;
+    FileInputStream certificate;
+
+    while (notLoggedIn) {
+			try {
+
+				Scanner scan = new Scanner(System.in);
+				System.out.print("Name: ");
+				username = scan.nextLine();
+				System.out.print("Password: ");
+				password = scan.nextLine();
+				certificate = new FileInputStream("./certificates/clientkeystores/" + username + "keystore");
+				notLoggedIn = false;
+
+			} catch (FileNotFoundException e) {
+				System.out.println("Faulty username or password.");
+			}
+		}
+
     try {
       SSLSocketFactory factory = null;
       try {
+        ///CHECK HOW WE LOAD KEYSTORE/CERTS AND STUFF
         char[] password = "password".toCharArray();
        // char[] password
         KeyStore ks = KeyStore.getInstance("JKS");
