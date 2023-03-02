@@ -3,6 +3,7 @@ import java.net.*;
 import java.io.*;
 import javax.net.ssl.*;
 import java.security.cert.X509Certificate;
+import java.util.Scanner;
 import java.security.KeyStore;
 import java.security.cert.*;
 
@@ -20,7 +21,7 @@ public class client {
     String host = null;
     int port = -1;
     for (int i = 0; i < args.length; i++) {
-      System.out.println("args[" + i + "] = " + args[i]);
+      System.out.println("args[" + i + "] = " + args[i]); //PORTS
     }
     if (args.length < 2) {
       System.out.println("USAGE: java client host port");
@@ -34,10 +35,36 @@ public class client {
       System.exit(-1);
     }
 
+
+
     try {
       SSLSocketFactory factory = null;
+
+      boolean notLoggedIn = true;
+      String password, username = null;
+      FileInputStream certificate = null;
+      Scanner scan = new Scanner(System.in);
+      char[] passwordChars = null;
+  
+      while (notLoggedIn) {
+        try {
+  
+          System.out.print("Name: ");
+          username = scan.nextLine();
+          System.out.print("Password: ");
+          password = scan.nextLine();
+          certificate = new FileInputStream("./certificates/clientkeystores/" + username + "keystore");
+          notLoggedIn = false;
+          scan.close();
+          passwordChars = password.toCharArray();
+  
+        } catch (FileNotFoundException e) {
+          System.out.println("Faulty username or password.");
+        }
+      }
+      
       try {
-        char[] password = "password".toCharArray();
+        char[] pwTrustStore = "password".toCharArray();
        // char[] password
         KeyStore ks = KeyStore.getInstance("JKS");
         KeyStore ts = KeyStore.getInstance("JKS");
@@ -45,14 +72,16 @@ public class client {
         TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
         SSLContext ctx = SSLContext.getInstance("TLSv1.2");
         // keystore password (storepass)
-        ks.load(new FileInputStream("src/certificates/nurse1keystore"), password);  
+
+        ks.load(certificate, passwordChars);  
         // truststore password (storepass);
-        ts.load(new FileInputStream("src/certificates/clienttruststore"), password); 
-        kmf.init(ks, password); // user password (keypass)
+        ts.load(new FileInputStream("src/certificates/clienttruststore"), pwTrustStore); 
+        kmf.init(ks, passwordChars); // user password (keypass)
         tmf.init(ts); // keystore can be used as truststore here
         ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
         factory = ctx.getSocketFactory();
       } catch (Exception e) {
+        System.out.println("Faulty username or password.");
         throw new IOException(e.getMessage());
       }
       SSLSocket socket = (SSLSocket)factory.createSocket(host, port);

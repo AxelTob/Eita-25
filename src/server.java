@@ -43,7 +43,7 @@ public class server implements Runnable {
       // BigInteger serial = ((X509Certificate) cert[0]).getSubjectX500Principal().getSerialNumber();
       String issuer = ((X509Certificate)cert[0]).getIssuerX500Principal().getName();
       String serial = ((X509Certificate)cert[0]).getSerialNumber().toString();
-      String alias = "";
+
 
       numConnectedClients++;
       System.out.println("client connected");
@@ -63,16 +63,25 @@ public class server implements Runnable {
       
       Setup.run();
       List<User> users = Setup.users;
-      //VERIFY USER PASSWORD AROUND HERE. DONT FORGET TO MAKE WRITING TO FILE POSSIBLE LATER, WHEN CREATING AND ALTERING RECORD.
+
       RecordSystem recordSystem = Setup.recordSystem;
-      User user = users.get(0);
-      System.out.println(user);
-      cmdHandler cmdHandler = new cmdHandler(user, recordSystem, users); //FIND USER THAT LOGGED IN FROM LIST OF USERS AND CREATE THIS CMDHANDLER
+      User user = Setup.findUserByName(users, subject);
+      String clientMsg;
+      cmdHandler cmdHandler = null;
+
+      if(user != null){
+        cmdHandler = new cmdHandler(user, recordSystem, users); //FIND USER THAT LOGGED IN FROM LIST OF USERS AND CREATE THIS CMDHANDLER
+        out.println(serial + " is logged in. Welcome!");
+        clientMsg = null;
+      }else{
+        out.println("User " + serial + " is not presently a user in our system. Please contact us to set one up.");
+        clientMsg = "quit";
+      }
       // TODO
       // Read USER from commandline smthn. "readInput()" and get CN="USER" from the client certificate
-      // Compare USERS to each other in order to verify access. 
-      
+      // Compare USERS to each other in order to verify access.   
       String clientMsg = null;
+
       while ((clientMsg = in.readLine().trim()) != "quit") {
         out.println(cmdHandler.handle(clientMsg));
         out.flush();
