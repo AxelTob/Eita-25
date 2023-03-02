@@ -67,9 +67,10 @@ public class server implements Runnable {
       RecordSystem recordSystem = Setup.recordSystem;
       User user = Setup.findUserByName(users, subject);
       String clientMsg;
+      cmdHandler cmdHandler = null;
 
       if(user != null){
-        cmdHandler cmdHandler = new cmdHandler(user, recordSystem, users); //FIND USER THAT LOGGED IN FROM LIST OF USERS AND CREATE THIS CMDHANDLER
+        cmdHandler = new cmdHandler(user, recordSystem, users); //FIND USER THAT LOGGED IN FROM LIST OF USERS AND CREATE THIS CMDHANDLER
         out.println(serial + " is logged in. Welcome!");
         clientMsg = null;
       }else{
