@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import src.Record;
 import src.RecordSystem;
+import src.Role;
 import src.User;
-import src.Enums.Role;
 
 import java.util.List;
 
