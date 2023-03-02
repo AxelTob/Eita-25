@@ -71,8 +71,7 @@ public class server implements Runnable {
       // TODO
       // Read USER from commandline smthn. "readInput()" and get CN="USER" from the client certificate
       // Compare USERS to each other in order to verify access. 
-      // TODO
-      // Read password from the user, compare it to the passwordfile. 
+      
       String clientMsg = null;
       while ((clientMsg = in.readLine().trim()) != "quit") {
         out.println(cmdHandler.handle(clientMsg));

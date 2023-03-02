@@ -2,7 +2,7 @@ package src;
 
 import java.util.List;
 
-import src.Enums.Role;
+//import src.Enums.Role;
 
 public class MainWriteTest {
     public static void main(String[] args) {
@@ -26,8 +26,10 @@ public class MainWriteTest {
             }
         }
 
-        Record record1 = new Record(patient1, List.of(nurse1), List.of(doctor1), "department1", "Test save to file - 3");
-        recordSystem.addRecord(record1);
+        //Record record1 = new Record(patient1, List.of(nurse1), List.of(doctor1), "department1", "Test save to file - 3");
+        //recordSystem.addRecord(record1);
+       // recordSystem.addRecord("");
+
     
         // Save the records to a file
         recordSystem.saveToFile();

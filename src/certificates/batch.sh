@@ -14,7 +14,10 @@ echo 'Skapar client side nyckelpar'
 echo '============================'
 
 #skapa ett nyckelpar
-keytool -genkeypair -keyalg RSA -keystore clientkeystore -alias keystore -dname "CN=CLIENT" -storepass password -keypass password
+keytool -genkeypair -keyalg RSA -keystore doc1keystore -alias keystore -dname "CN=DOC1" -storepass password -keypass password
+keytool -genkeypair -keyalg RSA -keystore nurse1keystore -alias keystore -dname "CN=NURSE1" -storepass password -keypass password
+keytool -genkeypair -keyalg RSA -keystore patient1keystore -alias keystore -dname "CN=PATIENT1" -storepass password -keypass password
+keytool -genkeypair -keyalg RSA -keystore patient2keystore -alias keystore -dname "CN=PATIENT2" -storepass password -keypass password
 
 #skapa en CSR för keystore
 keytool -certreq -keystore clientkeystore -file keystore.csr -alias keystore -storepass password
