@@ -66,7 +66,7 @@ public class Setup {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             System.out.println("user" + USERS_FILENAME);
-
+    
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(",");
                 String patientName = fields[0];
@@ -93,7 +93,11 @@ public class Setup {
                 }
             }
         } catch (IOException e) {
+            System.out.println("Error reading line from file: " + e.getMessage());
             e.printStackTrace();
+            // there is some problem with the file. But Ill just
+            // return records for now.
+            return records;
         }
         return records;
     }
