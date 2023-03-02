@@ -52,48 +52,29 @@ public class server implements Runnable {
       System.out.println("Serial number: " + serial);
 
       System.out.println(numConnectedClients + " concurrent connection(s)\n");
-
-     
-
-      
-      
       Setup.run();
       
       PrintWriter out = null;
       BufferedReader in = null;
       out = new PrintWriter(socket.getOutputStream(), true);
       in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
+      /////////////////////////////
       List<User> users = Setup.users;
-
       RecordSystem recordSystem = Setup.recordSystem;
-      User user = Setup.findUserByName(users, subject);
-      String clientMsg;
-      cmdHandler cmdHandler = null;
+      String name = subject.replaceAll("^CN=", "");
+      User user = Setup.findUserByName(users, name);
 
-      if(user != null){
-        cmdHandler = new cmdHandler(user, recordSystem, users); //FIND USER THAT LOGGED IN FROM LIST OF USERS AND CREATE THIS CMDHANDLER
-        out.println(serial + " is logged in. Welcome!");
-        clientMsg = null;
-      }else{
-        out.println("User " + serial + " is not presently a user in our system. Please contact us to set one up.");
-        clientMsg = "quit";
-      }
-      // TODO
-      // Read USER from commandline smthn. "readInput()" and get CN="USER" from the client certificate
-      // Compare USERS to each other in order to verify access.   
-      
-
-      while ((clientMsg = in.readLine().trim()) != "quit") {
-        out.println(cmdHandler.handle(clientMsg));
+      cmdHandler cmd = new cmdHandler(user, recordSystem, users);
+      /////////////////////////////
+      String clientMsg = null;
+      while ((clientMsg = in.readLine()) != null) {
+        System.out.println("received '" + clientMsg + "' from client");
+        String rev = cmd.handle(clientMsg);
+        System.out.print("sending '" + rev + "' to client...");
+        out.println(rev);
         out.flush();
-        //String rev = new StringBuilder(clientMsg).reverse().toString(); ////////////////////
-        //System.out.println("received '" + clientMsg + "' from client");
-        //System.out.print("sending '" + rev + "' to client..."); //////////////////
-        //out.println(rev);
-        //System.out.println("done\n");
+        System.out.println("done\n");
       }
-      System.out.println("Session is over. Goodbye!");
       in.close();
       out.close();
       socket.close();

@@ -1,5 +1,8 @@
 package src;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,18 +11,31 @@ public class cmdHandler {
     RecordSystem records;
     User user;
     List<User> userList;
-
+    BufferedWriter writer;
     
     public cmdHandler(User user, RecordSystem records, List<User> userList){
 
         this.records = records;
         this.user = user;
         this.userList = userList;
+        try {
+            this.writer = new BufferedWriter(new FileWriter("log.txt", true));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     
     
     public String handle(String msg){
         String[] input = msg.split(" ");
+        String logEntry = user.getName() + ": " + msg; // create log entry
+        try {
+            writer.write(logEntry); // write log entry to file
+            writer.newLine();
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
             switch (input[0]) {
 
                 case "list":

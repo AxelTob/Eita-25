@@ -43,12 +43,12 @@ public class client {
       boolean notLoggedIn = true;
       String password, username = null;
       FileInputStream certificate = null;
-      Scanner scan = new Scanner(System.in);
       char[] passwordChars = null;
-  
+      
       while (notLoggedIn) {
         try {
-  
+          
+          Scanner scan = new Scanner(System.in);
           System.out.print("Name: ");
           username = scan.nextLine();
           System.out.print("Password: ");
@@ -56,8 +56,8 @@ public class client {
           certificate = new FileInputStream("src/certificates/" + username + "keystore");
           
           notLoggedIn = false;
-          scan.close();
           passwordChars = password.toCharArray();
+          scan.close();
   
         } catch (FileNotFoundException e) {
           System.out.println("Faulty username or password.");
@@ -107,11 +107,10 @@ public class client {
       BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
       PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
       BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-      //////////.-----  -----------
-      String msg;
       for (;;) {
-        System.out.print("enter message to send to server: ");
-        msg = in.readLine();
+        String msg = "list";
+        System.out.print(">");
+        // msg = "hello";//read.readLine(); JUST INPUT FUCKER HERE
         if (msg.equalsIgnoreCase("quit")) {
           break;
         }
