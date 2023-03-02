@@ -53,7 +53,8 @@ public class client {
           username = scan.nextLine();
           System.out.print("Password: ");
           password = scan.nextLine();
-          certificate = new FileInputStream("./certificates/clientkeystores/" + username + "keystore");
+          certificate = new FileInputStream("src/certificates/" + username + "keystore");
+          
           notLoggedIn = false;
           scan.close();
           passwordChars = password.toCharArray();
@@ -81,7 +82,7 @@ public class client {
         ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
         factory = ctx.getSocketFactory();
       } catch (Exception e) {
-        System.out.println("Faulty username or password.");
+        System.out.println(" GG Faulty username or password.");
         throw new IOException(e.getMessage());
       }
       SSLSocket socket = (SSLSocket)factory.createSocket(host, port);
@@ -106,6 +107,7 @@ public class client {
       BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
       PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
       BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+      //////////.----------------
       String msg;
       for (;;) {
         System.out.print(">");

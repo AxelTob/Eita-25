@@ -14,8 +14,8 @@ echo 'Skapar client side nyckelpar'
 echo '============================'
 
 #skapa ett nyckelpar
-keytool -genkeypair -keyalg RSA -keystore doc1keystore -alias doc1keystore -dname "CN=DOC1" -storepass password -keypass password
-keytool -genkeypair -keyalg RSA -keystore nurse1keystore -alias nurse1keystore -dname "CN=NURSE1" -storepass password -keypass password
+keytool -genkeypair -keyalg RSA -keystore doc1keystore -alias doc1keystore -dname "CN=doctor1" -storepass password -keypass password
+keytool -genkeypair -keyalg RSA -keystore nurse1keystore -alias nurse1keystore -dname "CN=nurse1" -storepass password -keypass password
 #keytool -genkeypair -keyalg RSA -keystore patient1keystore -alias keystore -dname "CN=PATIENT1" -storepass password -keypass password
 #keytool -genkeypair -keyalg RSA -keystore patient2keystore -alias keystore -dname "CN=PATIENT2" -storepass password -keypass password
 

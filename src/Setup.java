@@ -17,7 +17,10 @@ public class Setup {
     public static RecordSystem recordSystem;
     //////////////////////////////////////////
     public static void run(){
+        System.out.println("users" + USERS_FILENAME);
+
         users = loadUsersFromFile(USERS_FILENAME);
+    
         List<Record> records = loadRecordsFromFile(RECORDS_FILENAME, users);
         recordSystem = new RecordSystem();
         for (Record record : records) {
@@ -62,7 +65,7 @@ public class Setup {
         List<Record> records = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
-            //System.out.println("user" + USERS_FILENAME);
+            System.out.println("user" + USERS_FILENAME);
 
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(",");

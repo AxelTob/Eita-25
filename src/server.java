@@ -55,13 +55,15 @@ public class server implements Runnable {
 
      
 
+      
+      
+      Setup.run();
+      
       PrintWriter out = null;
       BufferedReader in = null;
       out = new PrintWriter(socket.getOutputStream(), true);
       in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-      
-      Setup.run();
       List<User> users = Setup.users;
 
       RecordSystem recordSystem = Setup.recordSystem;
@@ -80,7 +82,7 @@ public class server implements Runnable {
       // TODO
       // Read USER from commandline smthn. "readInput()" and get CN="USER" from the client certificate
       // Compare USERS to each other in order to verify access.   
-      String clientMsg = null;
+      
 
       while ((clientMsg = in.readLine().trim()) != "quit") {
         out.println(cmdHandler.handle(clientMsg));
