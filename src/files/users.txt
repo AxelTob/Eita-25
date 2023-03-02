@@ -5,4 +5,8 @@ nurse2,NURSE,department2
 doctor1,DOCTOR,department1
 doctor2,DOCTOR,department2
 doctor3,DOCTOR,department1
+<<<<<<< HEAD
 government,GOVERNMENT,
+=======
+government,GOVERNMENT,
+>>>>>>> main
