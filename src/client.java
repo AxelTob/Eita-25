@@ -107,11 +107,14 @@ public class client {
       BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
       PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
       BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-      //////////.-----  -----------
+      
       String msg;
+      
       for (;;) {
         System.out.print("enter message to send to server: ");
-        msg = in.readLine();
+        
+        //msg = read.readLine();
+        msg = "read Record 1";
         if (msg.equalsIgnoreCase("quit")) {
           break;
         }

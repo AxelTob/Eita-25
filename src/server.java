@@ -67,25 +67,16 @@ public class server implements Runnable {
       List<User> users = Setup.users;
 
       RecordSystem recordSystem = Setup.recordSystem;
-      User user = Setup.findUserByName(users, subject);
+      String name = subject.replaceAll("CN=", "");
+      User user = Setup.findUserByName(users, name);
       String clientMsg;
       cmdHandler cmdHandler = null;
 
-      if(user != null){
-        cmdHandler = new cmdHandler(user, recordSystem, users); //FIND USER THAT LOGGED IN FROM LIST OF USERS AND CREATE THIS CMDHANDLER
-        out.println(serial + " is logged in. Welcome!");
-        clientMsg = null;
-      }else{
-        out.println("User " + serial + " is not presently a user in our system. Please contact us to set one up.");
-        clientMsg = "quit";
-      }
-      // TODO
-      // Read USER from commandline smthn. "readInput()" and get CN="USER" from the client certificate
-      // Compare USERS to each other in order to verify access.   
-      
-
-      while ((clientMsg = in.readLine().trim()) != "quit") {
-        out.println(cmdHandler.handle(clientMsg));
+      cmdHandler = new cmdHandler(user, recordSystem, users);
+      while ((clientMsg =in.readLine()) != "quit") {
+        clientMsg = in.readLine().trim();
+        //out.println(cmdHandler.handle(clientMsg));
+        cmdHandler.handle(clientMsg);
         out.flush();
         //String rev = new StringBuilder(clientMsg).reverse().toString(); ////////////////////
         //System.out.println("received '" + clientMsg + "' from client");
@@ -93,6 +84,21 @@ public class server implements Runnable {
         //out.println(rev);
         //System.out.println("done\n");
       }
+      if(user != null){
+        cmdHandler = new cmdHandler(user, recordSystem, users); //FIND USER THAT LOGGED IN FROM LIST OF USERS AND CREATE THIS CMDHANDLER
+        out.println(serial + " is logged in. Welcome!");
+        clientMsg = null;
+        
+      }else{
+        out.println("User " + subject + " is not presently a user in our system. Please contact us to set one up.");
+        clientMsg = "quit";
+      }
+      // TODO
+      // Read USER from commandline smthn. "readInput()" and get CN="USER" from the client certificate
+      // Compare USERS to each other in order to verify access.   
+      
+
+      
       System.out.println("Session is over. Goodbye!");
       in.close();
       out.close();

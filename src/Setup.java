@@ -27,11 +27,11 @@ public class Setup {
             recordSystem.addRecord(record);
         }
         // test
-        User user = findUserByName(users, "patient1");
-        List<Record> authorizedRecords = recordSystem.getRecords(user);
-        for (Record record : authorizedRecords) {
-            System.out.println(record.getContent(user));
-        }
+       // User user = findUserByName(users, "patient1");
+       // List<Record> authorizedRecords = recordSystem.getRecords(user);
+       // for (Record record : authorizedRecords) {
+      //      System.out.println(record.getContent(user));
+      //  }
 
     }
     private static List<User> loadUsersFromFile(String filename) {
