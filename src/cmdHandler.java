@@ -28,7 +28,7 @@ public class cmdHandler {
     
     public String handle(String msg){
         String[] input = msg.split(" ");
-        String logEntry = user.getName() + ": " + msg; // create log entry
+        String logEntry = ": " + msg; // create log entry
         try {
             writer.write(logEntry); // write log entry to file
             writer.newLine();
@@ -46,7 +46,7 @@ public class cmdHandler {
                     return string.toString();
 
 
-                case "read":
+                case ">read":
                     if (input.length != 2) {
                         return "Usage: read [record id]";
                     }

@@ -14,13 +14,13 @@ echo 'Skapar client side nyckelpar'
 echo '============================'
 
 #skapa ett nyckelpar
-keytool -genkeypair -keyalg RSA -keystore doc1keystore -alias doc1keystore -dname "CN=doctor1" -storepass password -keypass password
+keytool -genkeypair -keyalg RSA -keystore doctor1keystore -alias doctor1keystore -dname "CN=doctor1" -storepass password -keypass password
 keytool -genkeypair -keyalg RSA -keystore nurse1keystore -alias nurse1keystore -dname "CN=nurse1" -storepass password -keypass password
 #keytool -genkeypair -keyalg RSA -keystore patient1keystore -alias keystore -dname "CN=PATIENT1" -storepass password -keypass password
 #keytool -genkeypair -keyalg RSA -keystore patient2keystore -alias keystore -dname "CN=PATIENT2" -storepass password -keypass password
 
 #skapa en CSR för clientkeystore
-keytool -certreq -keystore doc1keystore -file D1keystore.csr -alias doc1keystore -storepass password
+keytool -certreq -keystore doctor1keystore -file D1keystore.csr -alias doctor1keystore -storepass password
 keytool -certreq -keystore nurse1keystore -file N1keystore.csr -alias nurse1keystore -storepass password
 
 
@@ -36,17 +36,17 @@ openssl x509 -req -in N1keystore.csr -CA CA.crt -CAkey CA.key -out N1keystore.cr
 
 #importera CA 
 #keytool -importcert -file CA.crt -alias rootca -keystore clientkeystore -storepass password
-keytool -importcert -file CA.crt -alias rootca -keystore doc1keystore -storepass password
+keytool -importcert -file CA.crt -alias rootca -keystore doctor1keystore -storepass password
 keytool -importcert -file CA.crt -alias rootca -keystore nurse1keystore -storepass password
 
 #importera sitt eget cert
 #keytool -importcert -file keystore.crt -alias keystore -keystore clientkeystore -storepass password
-keytool -importcert -file D1keystore.crt -alias doc1keystore -keystore doc1keystore -storepass password
+keytool -importcert -file D1keystore.crt -alias doctor1keystore -keystore doc1keystore -storepass password
 keytool -importcert -file N1keystore.crt -alias nurse1keystore -keystore nurse1keystore -storepass password
 
 #check
 #keytool -list -v -keystore clientkeystore -storepass password 
-keytool -list -v -keystore doc1keystore -storepass password 
+keytool -list -v -keystore doctor1keystore -storepass password 
 keytool -list -v -keystore nurse1keystore -storepass password 
 
 echo '============================'
