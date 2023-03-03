@@ -1,0 +1,16 @@
+15:52:26.686801User: nurse1 Action: list
+
+15:52:54.201931User: nurse1 Action: list
+
+15:54:42.925642User: nurse1 Action: read record1
+
+2023-03-03: User: doctor1 Action: list
+
+03/03/2023 at 06:02 ip.: User: nurse1 Action: 
+
+03/03/2023 at 06:02 ip.: User: nurse1 Action: list
+
+03/03/2023 at 06:03 ip.: User: doctor1 Action: read record1
+
+03/03/2023 -- 06:05 ip.: User: doctor1 Action: read record1
+
