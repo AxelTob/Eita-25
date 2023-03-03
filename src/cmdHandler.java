@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 public class cmdHandler {
     
@@ -28,7 +30,14 @@ public class cmdHandler {
     
     public String handle(String msg){
         String[] input = msg.split(" ");
-        String logEntry = user.getName() + ": " + msg; // create log entry
+        ///////////// LOG THE ACTIONS ////////////////////
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy '--' hh:mm a");
+
+       // LocalDate date = LocalDate.now();
+        LocalDateTime date = LocalDateTime.now();
+        String text = formatter.format(date);
+        //LocalDate parsedDate = LocalDate.parse(text, formatter);
+        String logEntry = (text + ": User: " + user.getName() + " Action: " + msg);// create log entry
         try {
             writer.write(logEntry); // write log entry to file
             writer.newLine();

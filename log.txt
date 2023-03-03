@@ -77,3 +77,8 @@ doctor1: create
 doctor1: create newrecord2 patient2 div1 nurse2 andra testet
 doctor1: write record4 andra testet h�r ocks�
 doctor1: quit
+03/03/2023 -- 06:29 ip.: User: doctor1 Action: list
+03/03/2023 -- 06:29 ip.: User: doctor1 Action: read record99
+03/03/2023 -- 06:29 ip.: User: doctor1 Action: read record2
+03/03/2023 -- 06:29 ip.: User: doctor1 Action: read record5
+03/03/2023 -- 06:29 ip.: User: doctor1 Action: quit
