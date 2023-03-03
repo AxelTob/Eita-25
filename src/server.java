@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 import javax.net.ServerSocketFactory;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSession;
@@ -34,11 +36,36 @@ public class server implements Runnable {
 
   public void run() {
     try {
-      SSLSocket socket=(SSLSocket)serverSocket.accept();
-      newListener();
-      SSLSession session = socket.getSession();
-      Certificate[] cert = session.getPeerCertificates();
-      String subject = ((X509Certificate) cert[0]).getSubjectX500Principal().getName();
+      //SSLSocket socket=(SSLSocket)serverSocket.accept();
+      //newListener();
+      //SSLSession session = socket.getSession();
+      //Certificate[] cert = session.getPeerCertificates();
+      //String subject = ((X509Certificate) cert[0]).getSubjectX500Principal().getName();
+      SSLSocket socket = null;
+      Certificate[] cert = null;
+      String subject = null;
+      try {
+          socket = (SSLSocket) serverSocket.accept();
+          newListener();
+          SSLSession session = socket.getSession();
+          cert = session.getPeerCertificates();
+          if (cert != null && cert.length > 0) {
+              subject = ((X509Certificate) cert[0]).getSubjectX500Principal().getName();
+              // do something with the subject
+          } else {
+              // handle the case where no certificates were found
+          }
+      } catch (IOException e) {
+          // handle IO exceptions
+      } finally {
+          if (socket != null) {
+              try {
+                  socket.close();
+              } catch (IOException e) {
+                  // handle exceptions while closing the socket
+              }
+          }
+      }
       // String issuer = cert.getSubjectX500Principal().getI
       // BigInteger serial = ((X509Certificate) cert[0]).getSubjectX500Principal().getSerialNumber();
       String issuer = ((X509Certificate)cert[0]).getIssuerX500Principal().getName();
@@ -47,6 +74,7 @@ public class server implements Runnable {
 
       numConnectedClients++;
       System.out.println("client connected");
+      subject = ((X509Certificate) cert[0]).getSubjectX500Principal().getName();
       System.out.println("client name (cert subject DN field): " + subject);
       System.out.println("Issuer: " + issuer);
       System.out.println("Serial number: " + serial);
@@ -64,9 +92,28 @@ public class server implements Runnable {
       String name = subject.replaceAll("^CN=", "");
       User user = Setup.findUserByName(users, name);
 
-      cmdHandler cmd = new cmdHandler(user, recordSystem, users);
+      cmdHandler cmdHandler = new cmdHandler(user, recordSystem, users);
+
+      boolean exitCondition = false;
+      String msg = null;
+      while (!exitCondition) {
+
+          if((msg=in.readLine())!=null) {
+            //System.out.print(">");
+            if (msg.equalsIgnoreCase("quit")) {
+              exitCondition = true;
+            }
+            cmdHandler.handle(msg);
+            System.out.print("sending '" + msg + "' to server...");
+            out.println(msg);
+            out.flush();
+            System.out.println("done");
+            System.out.println("received '" + in.readLine() + "' from server\n");
+          }
+        
+      }
       /////////////////////////////
-      String clientMsg = null;
+      /**String clientMsg = null;
       while ((clientMsg = in.readLine()) != null) {
         System.out.println("received '" + clientMsg + "' from client");
         String rev = cmd.handle(clientMsg);
@@ -74,7 +121,8 @@ public class server implements Runnable {
         out.println(rev);
         out.flush();
         System.out.println("done\n");
-      }
+        clientMsg = null;
+      }**/
       in.close();
       out.close();
       socket.close();
@@ -95,13 +143,13 @@ public class server implements Runnable {
     System.out.println("\nServer Started\n");
     int port = -1;
     System.out.println(port);
-    if (args.length >= 1) {
-      port = Integer.parseInt(args[0]);
-    }
+    //if (args.length >= 1) {
+    //  port = Integer.parseInt(args[0]);
+    //}
     String type = "TLSv1.2";
     try {
       ServerSocketFactory ssf = getServerSocketFactory(type);
-      ServerSocket ss = ssf.createServerSocket(port);
+      ServerSocket ss = ssf.createServerSocket(9876);
       ((SSLServerSocket)ss).setNeedClientAuth(true); // enables client authentication
       new server(ss);
     } catch (IOException e) {

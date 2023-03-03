@@ -17,7 +17,6 @@ public class Setup {
     public static RecordSystem recordSystem;
     //////////////////////////////////////////
     public static void run(){
-        System.out.println("users" + USERS_FILENAME);
 
         users = loadUsersFromFile(USERS_FILENAME);
     
@@ -29,9 +28,9 @@ public class Setup {
         // test
         User user = findUserByName(users, "patient1");
         List<Record> authorizedRecords = recordSystem.getRecords(user);
-        for (Record record : authorizedRecords) {
-            System.out.println(record.getContent(user));
-        }
+        //for (Record record : authorizedRecords) {
+        //    System.out.println(record.getContent(user));
+        //}
 
     }
     private static List<User> loadUsersFromFile(String filename) {
@@ -65,30 +64,31 @@ public class Setup {
         List<Record> records = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
-            System.out.println("user" + USERS_FILENAME);
+            //System.out.println("user" + USERS_FILENAME);
     
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(",");
                 String patientName = fields[0];
+                String recordID = fields[1];
                 List<User> nurses = new ArrayList<>();
-                for (String nurseName : fields[1].split("-")) {
+                for (String nurseName : fields[2].split("-")) {
                     User nurse = findUserByName(users, nurseName);
                     if (nurse != null) {
                         nurses.add(nurse);
                     }
                 }
                 List<User> doctors = new ArrayList<>();
-                for (String doctorName : fields[2].split("-")) {
+                for (String doctorName : fields[3].split("-")) {
                     User doctor = findUserByName(users, doctorName);
                     if (doctor != null) {
                         doctors.add(doctor);
                     }
                 }
-                String department = fields[3];
-                String content = fields[4];
+                String department = fields[4];
+                String content = fields[5];
                 User patient = findUserByName(users, patientName);
                 if (patient != null) {
-                    Record record = new Record(patient, patient.toString() + department, nurses, doctors, department, content);
+                    Record record = new Record(patient, recordID, nurses, doctors, department, content);
                     records.add(record);
                 }
             }

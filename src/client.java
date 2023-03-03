@@ -45,6 +45,7 @@ public class client {
 
       String[] msg = new String[2];
       BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+<<<<<<< HEAD
 
       try { /* set up a key manager for client authentication */
           SSLSocketFactory factory = null;

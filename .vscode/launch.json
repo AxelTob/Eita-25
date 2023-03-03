@@ -9,8 +9,24 @@
       "name": "client",
       "request": "launch",
       "mainClass": "src.client",
+      "projectName": "Eita25_464cab48"
+    },
+    {
+      "type": "java",
+      "name": "server",
+      "request": "launch",
+      "mainClass": "src.server",
+      "projectName": "Eita25_464cab48"
+    },
+    {
+      "type": "java",
+      "name": "client",
+      "request": "launch",
+      "mainClass": "src.client",
       "projectName": "Eita25_134151e9",
-      "args": ["localhost", "9876"]
+      "args": [
+        "localhost 9876"
+      ]
     },
     {
       "type": "java",
@@ -25,7 +41,9 @@
       "request": "launch",
       "mainClass": "src.server",
       "projectName": "Eita25_134151e9",
-      "args": ["9876"]
+      "args": [
+        "9876"
+      ]
     },
     {
       "type": "java",
@@ -61,7 +79,10 @@
       "request": "launch",
       "mainClass": "src.client",
       "projectName": "Eita25_c12bd198",
-      "args": ["localhost", "9876"]
+      "args": [
+        "localhost",
+        "9876"
+      ]
     }
   ]
 }
