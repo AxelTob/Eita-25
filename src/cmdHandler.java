@@ -41,7 +41,7 @@ public class cmdHandler {
                 case "list":
                     StringBuilder string = new StringBuilder();
                     for(Record r : records.getRecords(user)){
-                        string.append(r.getRecordID() + "/n");
+                        string.append(r.getRecordID() + "\n");
                     }        
                     return string.toString();
 

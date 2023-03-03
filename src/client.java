@@ -107,18 +107,25 @@ public class client {
       BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
       PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
       BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-      for (;;) {
-        String msg = "list";
-        System.out.print(">");
-        // msg = "hello";//read.readLine(); JUST INPUT FUCKER HERE
-        if (msg.equalsIgnoreCase("quit")) {
-          break;
-        }
-        System.out.print("sending '" + msg + "' to server...");
-        out.println(msg);
-        out.flush();
-        System.out.println("done");
-        System.out.println("received '" + in.readLine() + "' from server\n");
+      String msg;
+      while (true) {
+          System.out.print(">");
+
+
+          msg = read.readLine();
+          if (msg.equalsIgnoreCase("quit")) {
+              break;
+          }
+          System.out.print("sending '" + msg + "' to server...");
+          // Send the message to the server
+          out.println(msg);
+          System.out.println("done");
+          // Read the response from the server
+          String response = in.readLine();
+          System.out.println("received '" + response + "' from server\n");
+
+          
+          //System.out.println("READ NOT READY");
       }
       in.close();
       out.close();
