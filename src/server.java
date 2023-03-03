@@ -36,50 +36,24 @@ public class server implements Runnable {
 
   public void run() {
     try {
-      //SSLSocket socket=(SSLSocket)serverSocket.accept();
-      //newListener();
-      //SSLSession session = socket.getSession();
-      //Certificate[] cert = session.getPeerCertificates();
-      //String subject = ((X509Certificate) cert[0]).getSubjectX500Principal().getName();
-      SSLSocket socket = null;
-      Certificate[] cert = null;
-      String subject = null;
-      try {
-          socket = (SSLSocket) serverSocket.accept();
-          newListener();
-          SSLSession session = socket.getSession();
-          cert = session.getPeerCertificates();
-          if (cert != null && cert.length > 0) {
-              subject = ((X509Certificate) cert[0]).getSubjectX500Principal().getName();
-              // do something with the subject
-          } else {
-              // handle the case where no certificates were found
-          }
-      } catch (IOException e) {
-          // handle IO exceptions
-      } finally {
-          if (socket != null) {
-              try {
-                  socket.close();
-              } catch (IOException e) {
-                  // handle exceptions while closing the socket
-              }
-          }
-      }
+      SSLSocket socket=(SSLSocket)serverSocket.accept();
+      newListener();
+      SSLSession session = socket.getSession();
+      Certificate[] cert = session.getPeerCertificates();
+      String subject = ((X509Certificate) cert[0]).getSubjectX500Principal().getName();
       // String issuer = cert.getSubjectX500Principal().getI
       // BigInteger serial = ((X509Certificate) cert[0]).getSubjectX500Principal().getSerialNumber();
       String issuer = ((X509Certificate)cert[0]).getIssuerX500Principal().getName();
       String serial = ((X509Certificate)cert[0]).getSerialNumber().toString();
 
-
       numConnectedClients++;
       System.out.println("client connected");
-      subject = ((X509Certificate) cert[0]).getSubjectX500Principal().getName();
       System.out.println("client name (cert subject DN field): " + subject);
       System.out.println("Issuer: " + issuer);
       System.out.println("Serial number: " + serial);
 
       System.out.println(numConnectedClients + " concurrent connection(s)\n");
+      
       Setup.run();
       
       PrintWriter out = null;

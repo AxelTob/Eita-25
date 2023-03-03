@@ -79,6 +79,6 @@ keytool -importcert -file serverkeystore.crt -alias serverkeystore -keystore ser
 #check
 keytool -list -v -keystore serverkeystore -storepass password 
 
-#rm *.crt
-#rm *.csr
+rm *.crt
+rm *.csr
 

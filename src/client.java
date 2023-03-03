@@ -45,7 +45,7 @@ public class client {
 
       String[] msg = new String[2];
       BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-<<<<<<< HEAD
+
 
       try { /* set up a key manager for client authentication */
           SSLSocketFactory factory = null;
@@ -114,14 +114,14 @@ public class client {
           PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
           BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-          System.out.println("list\n");
+          //System.out.println("list\n");
           
-          out.println(msg[0]);
+          //out.println(msg[0]);
           while (socket.isConnected()) {
               String input;
-              while (!(input = in.readLine()).equals("ENDOFMSG")) {
-                  System.out.println(input);
-              }
+              //while (!(input = in.readLine()).equals("ENDOFMSG")) {
+              //    System.out.println(input);
+              //}
               System.out.print(">");
               msg[0] = read.readLine();
               out.println(msg[0]);
