@@ -88,6 +88,10 @@ public class server implements Runnable {
           }
         
       }
+
+      recordSystem.saveToFile();
+      //Setup.writeToFile(recordSystem);
+
       /////////////////////////////
       /**String clientMsg = null;
       while ((clientMsg = in.readLine()) != null) {

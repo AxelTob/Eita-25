@@ -65,3 +65,15 @@
 : list
 : quit
 nurse1: read record1
+doctor1: create
+doctor1: create newRecord patient1 div1 nurse1 hoppity
+doctor1: write record2 nababa
+doctor1: quit
+doctor1: read 1
+doctor1: list
+doctor1: read record1
+doctor1: read record2
+doctor1: create
+doctor1: create newrecord2 patient2 div1 nurse2 andra testet
+doctor1: write record4 andra testet h�r ocks�
+doctor1: quit

@@ -1,8 +1,10 @@
 package src;
 import java.nio.file.Paths;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +27,6 @@ public class Setup {
         for (Record record : records) {
             recordSystem.addRecord(record);
         }
-        // test
-        User user = findUserByName(users, "patient1");
-        List<Record> authorizedRecords = recordSystem.getRecords(user);
-        //for (Record record : authorizedRecords) {
-        //    System.out.println(record.getContent(user));
-        //}
 
     }
     private static List<User> loadUsersFromFile(String filename) {
@@ -64,8 +60,7 @@ public class Setup {
         List<Record> records = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
-            //System.out.println("user" + USERS_FILENAME);
-    
+
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(",");
                 String patientName = fields[0];
@@ -101,4 +96,25 @@ public class Setup {
         }
         return records;
     }
+
+
+    //CREATE REVERSE METHOD OF LOADRECORDSFROMFILE(). IT SHOULD COLLECT THE RECORDSYSTEM THAT THE SERVER HOLDS, AND THEN WRITES FROM THAT
+    //RECORDSYSTEM INTO THE RECORDS_FILENAME.
+    /**public static void writeToFile(RecordSystem serverRecs){
+        File recordsFile = new File(RECORDS_FILENAME);
+        try (PrintWriter wr = new PrintWriter(recordsFile)) {
+
+
+            for (Record r : serverRecs.) {
+
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading line from file: " + e.getMessage());
+            e.printStackTrace();
+            // there is some problem with the file. But Ill just
+            // return records for now.
+            //return records;
+        }
+        //return records;
+    }**/
 }

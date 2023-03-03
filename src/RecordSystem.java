@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecordSystem {
-    private final List<Record> records;
+    private List<Record> records;
 
     public RecordSystem() {
         this.records = new ArrayList<>();
@@ -57,6 +57,7 @@ public class RecordSystem {
                     String content = record.getContent(user);
                     if (content != null && !alreadyWritten.contains(record)) {
                         writer.write(record.getPatient().getName() + ",");
+                        writer.write(record.getRecordID() + ",");
                         writer.write(getUserListString(record.getNurses()) + ",");
                         writer.write(getUserListString(record.getDoctors()) + ",");
                         writer.write(record.getDepartment() + ",");

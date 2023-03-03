@@ -1,5 +1,7 @@
 patient1,record1,nurse1-nurse2,doctor1-doctor2,department1,Record 1
-patient1,record2,nurse1-nurse2,doctor1,department1,Record 2
+patient1,record2,nurse1-nurse2,doctor1,department1,nababa 
 patient2,record3,nurse2,doctor2,department2,Record 3
-patient1,record4,nurse1,doctor1,department1,This is it. No more drugs.
+patient1,record4,nurse1,doctor1,department1,andra testet h�r ocks� 
 patient2,record5,nurse2,doctor1,department1,Test save to file
+patient1,newrecord1,nurse1,doctor1,div1,hoppity 
+patient2,newrecord2,nurse2,doctor1,div1,andra testet 
