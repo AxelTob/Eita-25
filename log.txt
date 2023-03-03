@@ -1,3 +1,67 @@
 : list
 : list
 : wow
+: list
+: list
+: list
+: list
+: list
+: list
+: list
+: list
+: list
+: null
+: list
+: list
+: list
+: list
+: list
+: list
+: list
+: list
+: read record1
+: list
+: list
+: read record1
+: reclrd
+: read record3
+: read record3
+: read record3
+: read record3
+: read record3
+: read record1
+: read record2
+: read record69
+: write asdasd
+: write record1 homie
+: read record1
+: write record1 homiebomie shamonieschlonie
+: read record1
+: write record3 sahaaamnoa
+: write record69 slsllsls
+: create
+: create newrecord1 patient1 deprtmnt1 nurse2 this is wack
+: create newrecord1 patient1 deprtmnt1 nurse1 this is wack
+: read newrecord1
+: delete record1
+: read record1
+: list
+: read record1
+: read record2
+: create
+: create newrec patient1 dep1 nurse1 he crazy
+: list
+: read newrec
+: delete newrec
+: read newrec
+: list
+: read record1
+: read record5
+: create
+: create jaja patient1 jajajaja nurse1 jajajaja
+: read jaja
+: delete record1
+: read record1
+: list
+: quit
+nurse1: read record1

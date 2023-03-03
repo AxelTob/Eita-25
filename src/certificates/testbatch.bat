@@ -41,7 +41,7 @@ keytool -importcert -file CA.crt -alias rootca -keystore nurse1keystore -storepa
 
 #importera sitt eget cert
 #keytool -importcert -file keystore.crt -alias keystore -keystore clientkeystore -storepass password
-keytool -importcert -file D1keystore.crt -alias doctor1keystore -keystore doc1keystore -storepass password
+keytool -importcert -file D1keystore.crt -alias doctor1keystore -keystore doctor1keystore -storepass password
 keytool -importcert -file N1keystore.crt -alias nurse1keystore -keystore nurse1keystore -storepass password
 
 #check

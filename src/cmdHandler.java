@@ -28,7 +28,7 @@ public class cmdHandler {
     
     public String handle(String msg){
         String[] input = msg.split(" ");
-        String logEntry = ": " + msg; // create log entry
+        String logEntry = user.getName() + ": " + msg; // create log entry
         try {
             writer.write(logEntry); // write log entry to file
             writer.newLine();
@@ -41,20 +41,26 @@ public class cmdHandler {
                 case "list":
                     StringBuilder string = new StringBuilder();
                     for(Record r : records.getRecords(user)){
-                        string.append(r.getRecordID() + "\n");
-                    }        
+                        string.append(r.getRecordID() + ", ");
+                    }
+                    string.replace(string.length()-2, string.length() -1, "");
                     return string.toString();
 
 
-                case ">read":
+                case "read":
                     if (input.length != 2) {
                         return "Usage: read [record id]";
                     }
                     Record rec = records.getRecord(user, input[1]);
-                    if (rec != null && rec.getContent(user) == null) {
+                    if(rec != null){
+                        if(rec.getContent(user) == null) {
+                            return "You do not have permission for this action, or the record does not exist.";
+                        }else{
+                            return rec.getContent(user);
+                        }
+                    }else{
                         return "You do not have permission for this action, or the record does not exist.";
                     }
-                    return rec.getContent(user);
 
 
 
@@ -120,7 +126,7 @@ public class cmdHandler {
                         return "You do not have permission for this action, or the record does not exist.";
                     }
 
-
+                
                 default:
                     return "No such command.";
 

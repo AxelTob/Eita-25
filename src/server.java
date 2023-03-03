@@ -74,15 +74,17 @@ public class server implements Runnable {
 
           if((msg=in.readLine())!=null) {
             //System.out.print(">");
+
+            String cmdHandleResponse = "GG";
             if (msg.equalsIgnoreCase("quit")) {
               exitCondition = true;
             }
-            cmdHandler.handle(msg);
+            cmdHandleResponse = cmdHandler.handle(msg);
             System.out.print("sending '" + msg + "' to server...");
-            out.println(msg);
+            out.println(cmdHandleResponse);
             out.flush();
             System.out.println("done");
-            System.out.println("received '" + in.readLine() + "' from server\n");
+            System.out.println("received '" + msg + "' from server\n");
           }
         
       }

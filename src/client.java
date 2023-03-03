@@ -118,7 +118,7 @@ public class client {
           
           //out.println(msg[0]);
           while (socket.isConnected()) {
-              String input;
+              //String input;
               //while (!(input = in.readLine()).equals("ENDOFMSG")) {
               //    System.out.println(input);
               //}
@@ -129,6 +129,7 @@ public class client {
               if (msg[0].equalsIgnoreCase("quit")) {
                   break;
               }
+              System.out.println(in.readLine());
           }
           in.close();
           out.close();
