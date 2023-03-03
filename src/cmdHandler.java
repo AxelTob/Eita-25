@@ -3,8 +3,13 @@ package src;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Time;
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+
 
 public class cmdHandler {
     
@@ -12,6 +17,7 @@ public class cmdHandler {
     User user;
     List<User> userList;
     BufferedWriter writer;
+    LocalDateTime date;
     
     public cmdHandler(User user, RecordSystem records, List<User> userList){
 
@@ -22,6 +28,8 @@ public class cmdHandler {
             //String log = (user + " doing " + msg + " to " recordID);
         
             this.writer = new BufferedWriter(new FileWriter("log.txt", true));
+            
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -31,9 +39,17 @@ public class cmdHandler {
     
     public String handle(String msg){
         String[] input = msg.split(" ");
-        String logEntry = user.getName() + ": " + msg; // create log entry
+        ///////////// LOG THE ACTIONS ////////////////////
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy '--' hh:mm a");
+
+       // LocalDate date = LocalDate.now();
+        LocalDateTime date = LocalDateTime.now();
+        String text = formatter.format(date);
+        //LocalDate parsedDate = LocalDate.parse(text, formatter);
+        String logEntry = (text + ": User: " + user.getName() + " Action: " + msg);// create log entry
         try {
             writer.write(logEntry); // write log entry to file
+            writer.newLine();
             writer.newLine();
             writer.flush();
         } catch (IOException e) {
