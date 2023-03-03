@@ -1,4 +1,3 @@
-client,PATIENT,
 patient1,PATIENT,
 patient2,PATIENT,
 nurse1,NURSE,department1

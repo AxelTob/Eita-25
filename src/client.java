@@ -126,6 +126,7 @@ public class client {
               msg[0] = read.readLine();
               out.println(msg[0]);
               out.flush();
+              System.out.println(in.readLine());
               if (msg[0].equalsIgnoreCase("quit")) {
                   break;
               }

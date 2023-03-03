@@ -19,10 +19,13 @@ public class cmdHandler {
         this.user = user;
         this.userList = userList;
         try {
+            //String log = (user + " doing " + msg + " to " recordID);
+        
             this.writer = new BufferedWriter(new FileWriter("log.txt", true));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        
     }
     
     
@@ -123,7 +126,8 @@ public class cmdHandler {
 
                 default:
                     return "No such command.";
-
+            
+        
     }
     
 }
